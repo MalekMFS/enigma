@@ -15,8 +15,9 @@ Just run `main.scala` and it gives you the instructions. Preferably using `sbt`.
 
 ## Dependencies
 - [Pickling](https://github.com/scala/pickling) to Pickle/Unpickle settings to `"todays_rotor_state.enigma"` file.
-- Scala 2.11 (other versions not tested)
-##Future work
+- Scala 2.11 (other versions not tested) 
+
+## Future work
 - Implement Plugboard
 - Support different characters, especially space character
 - Get setting from the input
