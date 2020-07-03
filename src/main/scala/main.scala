@@ -24,23 +24,12 @@ object main extends App {
   }
 
   def rotorsStatus ={
-//    try {
-//      val fSource = Source.fromFile("todays_rotor_state.enigma")
-//      val rotors = fSource.mkString.unpickle[Array[String]]
-//      println("Rotors today status (R1, R2, R3):")
-//      rotors.map(println)
-//    }
-//    catch {
-//      case e => println("Error reading 'todays_rotor_state.enigma'. Make sure it exist or generate it from the menu.\n"
-//                        + e)
-//    }
-      // check if setting file exist
       val fSource = Try(file"todays_rotor_state.enigma".contentAsString)
       fSource match {
         case Success(file) =>
           val rotors = file.mkString.unpickle[Array[String]]
           println("Rotors today status (R1, R2, R3):")
-          rotors.map(println)
+          rotors.foreach(println)
         case Failure(e) =>
           println("Error reading 'todays_rotor_state.enigma'. Make sure it exist and if not, generate it from the menu.\n" + e)
       }
