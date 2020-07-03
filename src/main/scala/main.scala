@@ -1,4 +1,3 @@
-import scala.util.control.Breaks._
 import scala.io.Source
 import pickling.Defaults._, pickling.json._
 import scala.util.{Try, Success, Failure}
