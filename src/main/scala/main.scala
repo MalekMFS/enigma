@@ -1,12 +1,15 @@
 import better.files._ //import scala.io.Source
 import pickling.Defaults._, pickling.json._
 import scala.util.{Try, Success, Failure}
+// to verify that the method will be compiled with tail call optimization. will issue an error if the method cannot be optimized into a loop
+import scala.annotation.tailrec
 
 object main extends App {
   //TODO: add Space, uppercase characters support
   val alphabet  = ('a' to 'z').mkString("")
 
   // main loop
+  @tailrec
   def cliLoop: Unit = {
     println("\nWelcome to Enigma by MalekMFS!")
     println("Main menu:\n1: Generate Rotors' today status\n2: Show Rotors' today Status\n3: Code/Decode Input\n0: To exit")
@@ -38,6 +41,7 @@ object main extends App {
     val fSource = Try(file"todays_rotor_state.enigma".contentAsString)
     fSource match {
       case Success(file) =>
+        @tailrec
         def getText: String = {
           println("Please enter a text/cipher:")
           val text = scala.io.StdIn.readLine()

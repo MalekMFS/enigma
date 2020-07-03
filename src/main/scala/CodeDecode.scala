@@ -1,6 +1,7 @@
 import pickling.Defaults._, pickling.json._
 import better.files._ //import scala.io.Source
 
+// TODO refactor to FP immutable case class.
 case class CodeDecode(alphabet: String) {
   // TODO: check if this file exist here
   val fSource = file"todays_rotor_state.enigma".contentAsString
