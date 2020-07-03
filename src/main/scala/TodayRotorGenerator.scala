@@ -1,11 +1,9 @@
 import pickling.Defaults._, pickling.json._
-// File handling program
-import java.io.File
-import java.io.PrintWriter
+import better.files._, better.files.Dsl.SymbolicOperations
 
-// Creates a "todays_rotor_state.enigma" file representing rotors' today status
 object TodayRotorGenerator {
 
+  // Creates a "todays_rotor_state.enigma" file representing rotors' today status
   def create(alpha: String): Unit = {
     // Create 3 random Rotors
     val alphabet = alpha.toList
@@ -15,17 +13,9 @@ object TodayRotorGenerator {
     val rotors: Array[String] = Array(r1, r2, r3)
     println("Created Random Rotors")
 
-    // Creating a file
-    val file_Object = new File("todays_rotor_state.enigma" )
-
-    // Passing reference of the file to the printwriter
-    val pw = new PrintWriter(file_Object)
-
     // Writing to the file
-    pw.write(rotors.pickle.value)
+    val file_Object = file"todays_rotor_state.enigma"
+    file_Object < rotors.pickle.value
     println("Pickled today Rotors state object to the file")
-
-    // Closing printwriter
-    pw.close()
   }
 }

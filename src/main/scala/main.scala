@@ -1,4 +1,4 @@
-import scala.io.Source
+import better.files._ //import scala.io.Source
 import pickling.Defaults._, pickling.json._
 import scala.util.{Try, Success, Failure}
 
@@ -34,7 +34,8 @@ object main extends App {
 //      case e => println("Error reading 'todays_rotor_state.enigma'. Make sure it exist or generate it from the menu.\n"
 //                        + e)
 //    }
-      val fSource = Try(Source.fromFile("todays_rotor_state.enigma"))
+      // check if setting file exist
+      val fSource = Try(file"todays_rotor_state.enigma".contentAsString)
       fSource match {
         case Success(file) =>
           val rotors = file.mkString.unpickle[Array[String]]
@@ -43,12 +44,11 @@ object main extends App {
         case Failure(e) =>
           println("Error reading 'todays_rotor_state.enigma'. Make sure it exist and if not, generate it from the menu.\n" + e)
       }
-
   }
 
   def enigma = {
     // check if setting file exist
-    val fSource = Try(Source.fromFile("todays_rotor_state.enigma"))
+    val fSource = Try(file"todays_rotor_state.enigma".contentAsString)
     fSource match {
       case Success(file) =>
         var isValid = false

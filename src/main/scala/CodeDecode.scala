@@ -1,15 +1,16 @@
 import pickling.Defaults._, pickling.json._
-// Scala File handling program
-import scala.io.Source
+import better.files._ //import scala.io.Source
 
 case class CodeDecode(alphabet: String) {
-  val fSource = Source.fromFile("todays_rotor_state.enigma") // TODO: check if this file exist inside class
-  val rotors = fSource.mkString.unpickle[Array[String]]
+  // TODO: check if this file exist here
+  val fSource = file"todays_rotor_state.enigma".contentAsString
+  val rotors = fSource.unpickle[Array[String]]
   var (r1 , r2, r3) = (rotors(0), rotors(1), rotors(2))
 
   var state = 0   // Rotors' rotation state
   var cipher = ""
 
+  // Codes the input plain text
   def cipher(plain: String): String = {
     // TODO: control on input. remove unsupported characters.
 
@@ -19,10 +20,8 @@ case class CodeDecode(alphabet: String) {
       cipher = cipher :+ enigma_one_char(ch)
       rotate_rotors
     }
-    fSource.close()
     return cipher
   }
-
 
   // Enigma code for one character
   private def enigma_one_char(ch: Char): Char = {
@@ -44,8 +43,4 @@ case class CodeDecode(alphabet: String) {
     if (state % 26*26 == 0)
       r3 = r3.tail :+ r3.head
   }
-
-
-  // closing file
-  // fSource.close()
 }
