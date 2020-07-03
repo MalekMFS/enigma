@@ -51,17 +51,19 @@ object main extends App {
     val fSource = Try(file"todays_rotor_state.enigma".contentAsString)
     fSource match {
       case Success(file) =>
-        var isValid = false
-        var text: String = null
-        while (!isValid) {
+        def getText: String = {
           println("Please enter a text/cipher:")
-          text = scala.io.StdIn.readLine()
-          isValid = text.forall(c => alphabet.contains(c))
-          if (!isValid) println("Invalid input! only characters bellow are allowed:\n" + alphabet)
+          val text = scala.io.StdIn.readLine()
+          val isValid = text.forall(c => alphabet.contains(c))
+          if(isValid) text
+          else {
+            println("Invalid input! only characters bellow are allowed:\n" + alphabet)
+            getText
+          }
         }
 
         val enigma = CodeDecode(alphabet) //Initialize the enigma
-        val cipher = enigma.cipher(text)
+        val cipher = enigma.cipher(getText)
         println("Enigma's output:")
         println(cipher)
 
