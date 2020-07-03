@@ -6,6 +6,8 @@ case class CodeDecode(alphabet: String) {
   val fSource = file"todays_rotor_state.enigma".contentAsString
   val rotors = fSource.unpickle[Array[String]]
   var (r1 , r2, r3) = (rotors(0), rotors(1), rotors(2))
+  // Create a Map instead of searching through string using '.indexOf()'
+  val alphaMap = alphabet.toList.zipWithIndex.toMap
 
   var state = 0   // Rotors' rotation state
   var cipher = ""
@@ -25,10 +27,11 @@ case class CodeDecode(alphabet: String) {
 
   // Enigma code for one character
   private def enigma_one_char(ch: Char): Char = {
-    val to_r1     = r1(alphabet.indexOf(ch))
-    val to_r2     = r2(alphabet.indexOf(to_r1))
-    val to_r3     = r3(alphabet.indexOf(to_r2))
-    val reflected = alphabet(alphabet.length - alphabet.indexOf(to_r3) -1)
+//    val to_r1     = r1(alphabet.indexOf(ch))
+    val to_r1     = r1(alphaMap(ch))
+    val to_r2     = r2(alphaMap(to_r1))
+    val to_r3     = r3(alphaMap(to_r2))
+    val reflected = alphabet(alphabet.length - alphaMap(to_r3) -1)
     val from_r3   = alphabet(r3.indexOf(reflected))
     val from_r2   = alphabet(r2.indexOf(from_r3))
     val from_r1   = alphabet(r1.indexOf(from_r2))

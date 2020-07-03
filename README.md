@@ -21,4 +21,5 @@ Just run `main.scala` and it gives you the instructions. Preferably using `sbt`.
 - Implement Plugboard
 - Support different characters, especially space character
 - Get setting from the input
+- Create and rotate `Map` for Rotors, instead of searching into strings
 
