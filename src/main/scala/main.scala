@@ -5,22 +5,20 @@ import scala.util.{Try, Success, Failure}
 object main extends App {
   //TODO: add Space, uppercase characters support
   val alphabet  = ('a' to 'z').mkString("")
-  var exit = false
 
-  // Main loop
-  while(!exit){
+  // main loop
+  def cliLoop: Unit = {
     println("\nWelcome to Enigma by MalekMFS!")
     println("Main menu:\n1: Generate Rotors' today status\n2: Show Rotors' today Status\n3: Code/Decode Input\n0: To exit")
     println("Enter your choice:")
 
     val input = scala.io.StdIn.readInt() //TODO handle non int inputs
     input match {
-      case 0 => exit = true; println("Bye!")
-      case 1 => TodayRotorGenerator.create(alphabet)
-      case 2 => rotorsStatus
-      case 3 => enigma
+      case 0 => println("Bye!")
+      case 1 => TodayRotorGenerator.create(alphabet); cliLoop
+      case 2 => rotorsStatus; cliLoop
+      case 3 => enigma; cliLoop
     }
-
   }
 
   def rotorsStatus ={
@@ -61,4 +59,6 @@ object main extends App {
     }
   }
 
+  // Start the program
+  cliLoop
 }
