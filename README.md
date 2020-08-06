@@ -16,6 +16,7 @@ Just run `main.scala` and it gives you the instructions. Preferably using `sbt`.
 ## Dependencies
 - [Pickling](https://github.com/scala/pickling) to Pickle/Unpickle settings to `"todays_rotor_state.enigma"` file.
 - Scala 2.11 (other versions not tested) 
+- [better-files](https://github.com/pathikrit/better-files) for I/O
 
 ## Future work
 - Implement Plugboard
